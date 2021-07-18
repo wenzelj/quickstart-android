@@ -16,6 +16,7 @@
 
 package com.google.firebase.quickstart.fcm.java;
 
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -94,6 +95,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
+            //set icon
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            //set title
+            .setTitle(remoteMessage.getNotification().getTitle())
+            //set message
+            .setMessage(remoteMessage.getNotification().getBody())
+                    .show();
+
+
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM

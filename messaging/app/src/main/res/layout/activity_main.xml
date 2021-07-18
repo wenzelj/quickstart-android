@@ -39,4 +39,11 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/log_token" />
 
+    <TextView
+        android:id="@+id/firebase_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        tools:text="Notification message" />
+
 </LinearLayout>

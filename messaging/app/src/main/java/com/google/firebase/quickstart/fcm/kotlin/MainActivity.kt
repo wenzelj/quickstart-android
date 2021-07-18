@@ -1,12 +1,19 @@
 package com.google.firebase.quickstart.fcm.kotlin
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -15,10 +22,23 @@ import com.google.firebase.quickstart.fcm.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+
+
+    var receiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            // intent will holding data show the data here
+            val message = intent.getStringExtra("message")
+            val textView: TextView = findViewById(R.id.firebase_message)
+            textView.text = message
+            Toast.makeText(baseContext, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        registerReceiver(receiver, IntentFilter("com.push.message.received"));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.

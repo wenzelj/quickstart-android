@@ -8,6 +8,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -54,6 +55,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
+            //Toast.makeText(this, it.body, Toast.LENGTH_LONG).show()
+
+            val intent = Intent("com.push.message.received")
+            intent.putExtra("message", it.body) // Add more data as per need
+            intent.putExtra("title" , it.title)
+
+            sendBroadcast(intent)
+//            val alertDialog = AlertDialog.Builder(this) //set icon
+//                //.setIcon() //set title
+//                .setTitle(it.title) //set message
+//                .setMessage(it.body)
+//                .setPositiveButton("Ok", null)
+//                .show()
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM

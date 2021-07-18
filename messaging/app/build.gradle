@@ -2,10 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
+
 check.dependsOn 'assembleDebugAndroidTest'
 
 android {
     compileSdkVersion 30
+
 
     defaultConfig {
         applicationId "com.google.firebase.quickstart.fcm"
